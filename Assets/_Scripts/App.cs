@@ -168,6 +168,11 @@ public class App : MonoBehaviour {
             boundObject.transform.Rotate(new Vector3(1, 0, 0), 90);
             elementsObjects.Add(boundObject);
         }
+
+        if (mCompoundDescription.IsCompletted())
+        {
+            StartCoroutine(UpdatePodiumTitle(mCompoundDescription.mName + " is combined.\n Use air tap for next component."));
+        }
     }
 
     public void SetNextComponent()
@@ -194,7 +199,7 @@ public class App : MonoBehaviour {
         mCompoundIndex++;
         mCompoundIndex %= 3;
 
-        StartCoroutine(UpdatePodiumTitle());
+        StartCoroutine(UpdatePodiumTitle(mCompoundDescription.mName));
     }
 
     public bool IsCurrentCompoundCompletted()
@@ -202,13 +207,13 @@ public class App : MonoBehaviour {
         return mCompoundDescription.IsCompletted();
     }
 
-    public IEnumerator UpdatePodiumTitle()
+    public IEnumerator UpdatePodiumTitle(string title)
     {
         yield return new WaitForSeconds(1.0f);
         var textMesh = componentName.GetComponent<TextMeshProUGUI>();
         if (textMesh != null)
         {
-            textMesh.text = mCompoundDescription.mName;
+            textMesh.text = title;
         }
     }
 
@@ -230,7 +235,8 @@ public class App : MonoBehaviour {
 
     public void CorrectComponentCanvas(Vector3 headPos)
     {
-        componentNameCanvas.transform.LookAt(headPos);
+        var pos = new Vector3(headPos.x, componentNameCanvas.transform.position.y, headPos.z);
+        componentNameCanvas.transform.LookAt(pos);
         componentNameCanvas.transform.Rotate(new Vector3(0, 1, 0), 180);
     }
 }

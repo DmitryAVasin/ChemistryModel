@@ -6,7 +6,7 @@ using HoloToolkit.Unity.InputModule;
 public class FloorScript : MonoBehaviour, IInputClickHandler, IInputHandler
 {
     public App app;
-    public Camera camera;
+    public Camera mCamera;
 
 
     // Use this for initialization
@@ -28,8 +28,8 @@ public class FloorScript : MonoBehaviour, IInputClickHandler, IInputHandler
             Vector3 pos = new Vector3(0, 0.0f, 5.0f);
 
             // head position and orientation.
-            var headPosition = Camera.main.transform.position;
-            var gazeDirection = Camera.main.transform.forward;
+            var headPosition = mCamera.transform.position;
+            var gazeDirection = mCamera.transform.forward;
 
             RaycastHit hitInfo;
 
@@ -41,12 +41,12 @@ public class FloorScript : MonoBehaviour, IInputClickHandler, IInputHandler
                     app.SetPodium(pos);
                     app.SetState(App.AppState.CreateCompound);
 
-                    Vector3 direction = new Vector3(camera.transform.forward.x, 0, camera.transform.forward.z);
+                    Vector3 direction = new Vector3(mCamera.transform.forward.x, 0, mCamera.transform.forward.z);
                     direction.Normalize();
 
-                    float distance = (pos - camera.transform.position).magnitude;
+                    float distance = (pos - mCamera.transform.position).magnitude;
 
-                    app.SetPeriodicTable(direction, distance, camera.transform.position);
+                    app.SetPeriodicTable(direction, distance, mCamera.transform.position);
                 }
             }
         }

@@ -6,16 +6,8 @@ using HoloToolkit.Unity.InputModule;
 public class MainScene : MonoBehaviour, IInputClickHandler, IInputHandler
 {
 
-    public enum AppState {
-        Unknown = 0,
-        Init,
-        Welcome,
-        PodiumSetup,
-        CreateCompound,
-        ViewCompound
-    };
-
-    protected AppState mAppState = AppState.Unknown;
+    public App app;
+    public Camera mCamera;
 
     // Use this for initialization
     void Start () {
@@ -24,13 +16,11 @@ public class MainScene : MonoBehaviour, IInputClickHandler, IInputHandler
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(app.GetState() == App.AppState.CreateCompound)
+        {
+            app.CorrectPeriodicTablePosition(mCamera.transform.position);
+        }
 	}
-
-    public void SetState(AppState state)
-    {
-        mAppState = state;
-    }
 
     public void OnInputClicked(InputClickedEventData eventData)
     {

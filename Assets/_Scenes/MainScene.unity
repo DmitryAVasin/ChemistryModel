@@ -438,7 +438,10 @@ MonoBehaviour:
   table: {fileID: 158554566}
   elementTemplate: {fileID: 1998203103282370, guid: 29e9551f9ac15c249aa6066d3d8d5b71,
     type: 2}
+  connectorTemplate: {fileID: 1908303508470348, guid: 0b82e382bb8cffd4990c99130dfa5493,
+    type: 2}
   componentName: {fileID: 424359851}
+  componentNameCanvas: {fileID: 780422660}
 --- !u!4 &663363028
 Transform:
   m_ObjectHideFlags: 0
@@ -800,6 +803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cf90a0d7b9f2d4ca9f1860a2749ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  app: {fileID: 663363027}
+  mCamera: {fileID: 308754812}
 --- !u!4 &1071947911
 Transform:
   m_ObjectHideFlags: 0
@@ -986,7 +991,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22450954, guid: c879e892866c8db4f8930b25672233ac, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.1526
+      value: 0.916
       objectReference: {fileID: 0}
     - target: {fileID: 22450954, guid: c879e892866c8db4f8930b25672233ac, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1308,7 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   app: {fileID: 663363027}
-  camera: {fileID: 308754812}
+  mCamera: {fileID: 308754812}
 --- !u!1001 &1677147357
 Prefab:
   m_ObjectHideFlags: 0
@@ -1410,7 +1415,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4257620459054708, guid: 8ca3a2af9c0f0fb4d9401ba8a4df38bb, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4257620459054708, guid: 8ca3a2af9c0f0fb4d9401ba8a4df38bb, type: 2}
       propertyPath: m_LocalPosition.z

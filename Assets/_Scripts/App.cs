@@ -20,7 +20,9 @@ public class App : MonoBehaviour {
     public GameObject podium;
     public GameObject table;
     public GameObject elementTemplate;
-    public GameObject componentName; 
+    public GameObject connectorTemplate;
+    public GameObject componentName;
+    public GameObject componentNameCanvas;
 
     protected CompoundDescription mCompoundDescription;
     protected int mCompoundIndex = 0;
@@ -146,6 +148,26 @@ public class App : MonoBehaviour {
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+
+        List<ElementBoundDescription> bounds = mCompoundDescription.GetNewBounds();
+        foreach (ElementBoundDescription bound in bounds)
+        {
+            var p1 = mCompoundDescription.mElements[bound.mElement1].mPosition;
+            var p2 = mCompoundDescription.mElements[bound.mElement2].mPosition;
+
+            p1 += podium.transform.position;
+            p1.y += 1.5f;
+
+            p2 += podium.transform.position;
+            p2.y += 1.5f;
+
+            GameObject boundObject = (GameObject)Instantiate(connectorTemplate, sceneContent.transform);
+            boundObject.transform.position = (p1 + p2) / 2;
+            //boundObject.transform.position = p1;
+            boundObject.transform.LookAt(p2);
+            boundObject.transform.Rotate(new Vector3(1, 0, 0), 90);
+            elementsObjects.Add(boundObject);
+        }
     }
 
     public void SetNextComponent()
@@ -183,10 +205,32 @@ public class App : MonoBehaviour {
     public IEnumerator UpdatePodiumTitle()
     {
         yield return new WaitForSeconds(1.0f);
-        var textMesh = componentName.GetComponent<TextMeshPro>();
+        var textMesh = componentName.GetComponent<TextMeshProUGUI>();
         if (textMesh != null)
         {
             textMesh.text = mCompoundDescription.mName;
         }
+    }
+
+    public void CorrectPeriodicTablePosition(Vector3 headPos)
+    {
+        Vector3 p1 = new Vector3(podium.transform.position.x, 0, podium.transform.position.z);
+        var direction = p1 - headPos;
+        direction.Normalize();
+
+        var newPos = p1 + direction * 4.0f;
+        newPos.y = 0;
+        table.transform.position = newPos;
+
+        table.transform.LookAt(headPos);
+        table.transform.Rotate(new Vector3(0, 1, 0), 180);
+
+        CorrectComponentCanvas(headPos);
+    }
+
+    public void CorrectComponentCanvas(Vector3 headPos)
+    {
+        componentNameCanvas.transform.LookAt(headPos);
+        componentNameCanvas.transform.Rotate(new Vector3(0, 1, 0), 180);
     }
 }

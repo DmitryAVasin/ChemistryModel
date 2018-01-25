@@ -29,6 +29,7 @@ public class App : MonoBehaviour {
     protected List<GameObject> elementsObjects = new List<GameObject>();
 
     protected AppState mAppState = AppState.Init;
+    protected int objectIndex = 0;
 
     // Use this for initialization
     void Start()
@@ -114,7 +115,18 @@ public class App : MonoBehaviour {
                 // Create element
                 GameObject elementObject = (GameObject)Instantiate(elementTemplate, sceneContent.transform);
                 elementObject.transform.position = element.transform.position;
+                elementObject.name = elementObject.name + objectIndex.ToString();
+                objectIndex++;
                 elementsObjects.Add(elementObject);
+                Color col = GetColorByElement(element.ElementName.text);
+
+                GameObject sph = GameObject.Find(elementObject.name + "/Sphere");
+                Renderer rend = sph.GetComponent<Renderer>();
+                if (rend != null)
+                {
+                    rend.material.SetColor("_Color", col);
+                    rend.material.SetColor("_SpecColor", col);
+                }
 
                 // start animation
                 StartCoroutine(SmoothMovement(elementObject, pos));
@@ -185,13 +197,15 @@ public class App : MonoBehaviour {
         switch(mCompoundIndex)
         {
             case 0:
-               // mCompoundDescription = CompoundDescription.GetWater();
                 mCompoundDescription = CompoundDescription.GetOxygen();
                 break;
             case 1:
                 mCompoundDescription = CompoundDescription.GetWater();
                 break;
             case 2:
+                mCompoundDescription = CompoundDescription.GetBenzene();
+                break;
+            case 3:
                 mCompoundDescription = CompoundDescription.GetSodiumChloride();
                 break;
         };
@@ -238,5 +252,26 @@ public class App : MonoBehaviour {
         var pos = new Vector3(headPos.x, componentNameCanvas.transform.position.y, headPos.z);
         componentNameCanvas.transform.LookAt(pos);
         componentNameCanvas.transform.Rotate(new Vector3(0, 1, 0), 180);
+    }
+
+    public Color GetColorByElement(string elementName)
+    {
+        Color res = Color.cyan;
+        switch(elementName)
+        {
+            case "H":
+                res = Color.blue;
+                break;
+            case "O":
+                res = Color.white;
+                break;
+            case "C":
+                res = Color.yellow;
+                break;
+            case "Cl":
+                res = Color.red;
+                break;
+        }
+        return res;
     }
 }

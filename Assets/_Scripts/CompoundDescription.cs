@@ -161,4 +161,40 @@ public class CompoundDescription {
 
         return comp;
     }
+
+    public static CompoundDescription GetBenzene()
+    {
+        CompoundDescription comp = new CompoundDescription("C6H6", "Benzene");
+
+        int e1 = comp.AddElement(new ElementDescription("C", new Vector3(-0.75f, 0.0f, 0.0f)));
+        int e2 = comp.AddElement(new ElementDescription("C", new Vector3(-0.44f, 0.0f, 0.57f)));
+        int e3 = comp.AddElement(new ElementDescription("C", new Vector3(0.44f, 0.0f, 0.57f)));
+        int e4 = comp.AddElement(new ElementDescription("C", new Vector3(0.75f, 0.0f, 0.0f)));
+        int e5 = comp.AddElement(new ElementDescription("C", new Vector3(0.44f, 0.0f, -0.57f)));
+        int e6 = comp.AddElement(new ElementDescription("C", new Vector3(-0.44f, 0.0f, -0.57f)));
+
+        int e7 = comp.AddElement(new ElementDescription("H", new Vector3(-1.4f, 0.0f, 0.0f)));
+        int e8 = comp.AddElement(new ElementDescription("H", new Vector3(-0.96f, 0.0f, 1.0f)));
+        int e9 = comp.AddElement(new ElementDescription("H", new Vector3(0.96f, 0.0f, 1.0f)));
+        int e10 = comp.AddElement(new ElementDescription("H", new Vector3(1.4f, 0.0f, 0.0f)));
+        int e11 = comp.AddElement(new ElementDescription("H", new Vector3(0.96f, 0.0f, -1.0f)));
+        int e12 = comp.AddElement(new ElementDescription("H", new Vector3(-0.96f, 0.0f, -1.0f)));
+
+
+        comp.AddBound(new ElementBoundDescription(e1, e2));
+        comp.AddBound(new ElementBoundDescription(e2, e3));
+        comp.AddBound(new ElementBoundDescription(e3, e4));
+        comp.AddBound(new ElementBoundDescription(e4, e5));
+        comp.AddBound(new ElementBoundDescription(e5, e6));
+        comp.AddBound(new ElementBoundDescription(e6, e1));
+
+        comp.AddBound(new ElementBoundDescription(e1, e7));
+        comp.AddBound(new ElementBoundDescription(e2, e8));
+        comp.AddBound(new ElementBoundDescription(e3, e9));
+        comp.AddBound(new ElementBoundDescription(e4, e10));
+        comp.AddBound(new ElementBoundDescription(e5, e11));
+        comp.AddBound(new ElementBoundDescription(e6, e12));
+
+        return comp;
+    }
 }

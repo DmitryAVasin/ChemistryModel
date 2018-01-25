@@ -24,6 +24,9 @@ public class App : MonoBehaviour {
     public GameObject componentName;
     public GameObject componentNameCanvas;
 
+    public GameObject mainProjectile;
+  //  public ParticleSystem mainParticleSystem;
+
     protected CompoundDescription mCompoundDescription;
     protected int mCompoundIndex = 0;
     protected List<GameObject> elementsObjects = new List<GameObject>();
@@ -151,6 +154,12 @@ public class App : MonoBehaviour {
             //Find a new position proportionally closer to the end, based on the moveTime
             Vector3 newPostion = Vector3.MoveTowards(obj.transform.position, pos, inverseMoveTime * Time.deltaTime);
 
+            /*
+            GameObject ParticleTempObj = (GameObject)Instantiate(mainProjectile);
+            ParticleTempObj.transform.position = newPostion;
+            Destroy(ParticleTempObj, 4f);
+            */
+
             //Call MovePosition on attached Rigidbody2D and move it to the calculated position.
             obj.transform.position = newPostion;
 
@@ -158,6 +167,7 @@ public class App : MonoBehaviour {
             sqrRemainingDistance = (obj.transform.position - pos).sqrMagnitude;
 
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
+            //yield return null;
             yield return null;
         }
 
